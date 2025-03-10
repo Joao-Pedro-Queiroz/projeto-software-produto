@@ -47,6 +47,6 @@ jobs:
         key: ${{ secrets.KEY_TEST }}
         port: 22
         script: |
-          docker stop loja
+          docker stop produto
           docker rm --force produto
           docker run -d -p 8082:8082 --name produto --network=rede jpqv/produto-ci:${{ github.sha }}
