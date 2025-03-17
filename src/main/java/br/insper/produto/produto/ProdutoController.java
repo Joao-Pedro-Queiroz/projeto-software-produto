@@ -1,10 +1,9 @@
 package br.insper.produto.produto;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/produto")
@@ -20,9 +19,8 @@ public class ProdutoController {
     }
 
     @GetMapping
-    public Page<Produto> listarProdutos(@RequestParam(required = false) String nome
-            , Pageable pageable) {
-        return produtoService.listarProdutos(nome, pageable);
+    public List<Produto> listarProdutos(@RequestParam(required = false) String nome) {
+        return produtoService.listarProdutos(nome);
     }
 
     @GetMapping("/{id}")

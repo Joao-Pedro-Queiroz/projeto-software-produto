@@ -21,4 +21,9 @@ public class Produto {
     public Float getPreco() { return preco; }
 
     public void setPreco(Float preco) { this.preco = preco; }
+
+    @Override
+    public boolean equals (Object obj) {
+        return this.nome.equals(((Produto) obj).getNome());
+    }
 }

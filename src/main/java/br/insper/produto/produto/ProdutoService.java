@@ -1,11 +1,11 @@
 package br.insper.produto.produto;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
 
 @Service
 public class ProdutoService {
@@ -24,11 +24,11 @@ public class ProdutoService {
         return new RetornarProdutoDTO(produto.getId(), produto.getNome(), produto.getPreco(), produto.getEstoque());
     }
 
-    public Page<Produto> listarProdutos(String nome, Pageable pageable) {
+    public List<Produto> listarProdutos(String nome) {
         if (nome != null) {
-            return produtoRepository.findByNome(nome, pageable);
+            return produtoRepository.findByNome(nome);
         }
-        return produtoRepository.findAll(pageable);
+        return produtoRepository.findAll();
     }
 
     public Produto buscarProduto(String id) {
