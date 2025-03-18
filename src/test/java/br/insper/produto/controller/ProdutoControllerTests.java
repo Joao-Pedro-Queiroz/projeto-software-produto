@@ -15,10 +15,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 
 import java.util.Arrays;
 import java.util.List;
@@ -80,5 +76,41 @@ public class ProdutoControllerTests {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/produto"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(produtos)));
+    }
+
+    @Test
+    void test_GetProduto() throws Exception {
+
+        Produto produto = new Produto();
+        produto.setId("123");
+        produto.setNome("Teste");
+        produto.setPreco(23.00f);
+        produto.setEstoque(22);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        Mockito.when(produtoService.buscarProduto(produto.getId()))
+                .thenReturn(produto);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/produto/"+produto.getId()))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(produto)));
+    }
+
+    @Test
+    void test_PutProdutoDiminuiEstoque() throws Exception {
+
+        String idProduto = "123";
+
+        RetornarProdutoDTO getDTO = new RetornarProdutoDTO(idProduto,"Teste", 23.00f, 22);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        Mockito.when(produtoService.diminuirEstoqueProduto(idProduto))
+                .thenReturn(getDTO);
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/produto/"+idProduto))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(getDTO)));
     }
 }
