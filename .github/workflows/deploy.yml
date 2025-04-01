@@ -49,4 +49,4 @@ jobs:
         script: |
           docker stop produto
           docker rm --force produto
-          docker run -d -p 8082:8082 --name produto --network=rede jpqv/produto-ci:${{ github.sha }}
+          docker run -d -p 8082:8082 -e string_conexao_MongoDB_biblioteca=${{ secrets.string_conexao_MongoDB_biblioteca }} --name produto --network=rede jpqv/produto-ci:${{ github.sha }}
