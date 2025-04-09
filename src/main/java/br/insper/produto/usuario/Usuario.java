@@ -51,4 +51,9 @@ public class Usuario {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.email.equals(((Usuario) obj).getEmail());
+    }
 }
