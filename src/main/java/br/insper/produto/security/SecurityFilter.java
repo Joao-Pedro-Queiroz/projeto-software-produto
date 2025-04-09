@@ -34,10 +34,10 @@ public class SecurityFilter extends OncePerRequestFilter {
             Usuario usuario = loginService.validateToken(token);
 
             if (!usuario.getPapel().equals("ADMIN")) {
-                throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+                response.sendError(HttpStatus.FORBIDDEN.value());
+            } else {
+                filterChain.doFilter(request, response);
             }
-
-            filterChain.doFilter(request, response);
         } else {
             filterChain.doFilter(request, response);
         }
