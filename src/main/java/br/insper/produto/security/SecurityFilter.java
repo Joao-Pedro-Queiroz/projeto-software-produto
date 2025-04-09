@@ -35,6 +35,9 @@ public class SecurityFilter extends OncePerRequestFilter {
                 filterChain.doFilter(request, response);
             }
         } else {
+            String token = request.getHeader("Authorization");
+
+            loginService.validateToken(token);
             filterChain.doFilter(request, response);
         }
     }
