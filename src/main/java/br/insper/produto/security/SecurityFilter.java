@@ -2,7 +2,6 @@ package br.insper.produto.security;
 
 import br.insper.produto.login.LoginService;
 import br.insper.produto.usuario.Usuario;
-import br.insper.produto.usuario.UsuarioService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,9 +19,6 @@ public class SecurityFilter extends OncePerRequestFilter {
 
     @Autowired
     private LoginService loginService;
-
-    @Autowired
-    private UsuarioService usuarioService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
